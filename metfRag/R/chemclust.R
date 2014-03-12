@@ -270,12 +270,19 @@ myimages.hclust <- function (tree, k = NULL, which = NULL, x = NULL, h = NULL,
     stop(gettextf("all elements of 'which' must be between 1 and %d", 
                   k), domain = NA)
   
+  if (is.null(h)) {
+    rectheight <- mean(rev(tree$height)[(k-1):k])
+  } else {
+    cat("using h=", h, "\n")
+    rectheight <- h
+  }
+  
   retval <- list()
   if (!is.null(border)) {
     border <- rep_len(border, length(which))
     for(n in seq_along(which)) {
       rect(m[which[n]]+0.66, par("usr")[3L],
-           m[which[n]+1]+0.33, mean(rev(tree$height)[(k-1):k]),
+           m[which[n]+1]+0.33, rectheight,
            border = border[n])
       retval[[n]] <- which(cluster==as.integer(names(clustab)[which[n]]))
     }
@@ -366,21 +373,32 @@ myimages.clustNumbers <- function (tree, k = NULL, which = NULL, x = NULL, h = N
   if (any(which > k)) 
     stop("all elements of 'which' must be between 1 and %d", k)
   
+  if (is.null(h)) {
+    rectheight <- ifelse(is.na(mean(rev(tree$height)[(k-1):k])), 0.5, mean(rev(tree$height)[(k-1):k]))
+  } else {
+    cat("using h=", h, "\n")
+    rectheight <- h
+  }
+  
   retval <- list()
   if (!is.null(border)) {
     border <- rep_len(border, length(which))
     for(n in seq_along(which)) {    
-      rect(m[which[n]]+0.66, par("usr")[3L],
+      rect(m[which[n]]+0.66, par("usr")[3L]/2,
            m[which[n]+1]+0.33, 
-           ifelse(is.na(mean(rev(tree$height)[(k-1):k])), 0.5, mean(rev(tree$height)[(k-1):k])) ,
-           border = border[n])
+           rectheight,
+           border = rgb(t(col2rgb(border[n]))/255))
 
       cexonewidth <- strwidth(which[n])
       clusterwidth <- (m[which[n]+1]+0.33)-(m[which[n]]+0.66)
       
+#      text(x=(m[which[n]]+0.66)+clusterwidth/2,
+#           y=(rectheight-par("usr")[3L])/2,
+#        labels=which[n], col=border[n], cex=clusterwidth/cexonewidth)
       text(x=(m[which[n]]+0.66)+clusterwidth/2,
-           y=(ifelse(is.na(mean(rev(tree$height)[(k-1):k])), 0.5, mean(rev(tree$height)[(k-1):k]))-par("usr")[3L])/2,
-        labels=which[n], col=border[n], cex=clusterwidth/cexonewidth)
+           y=(rectheight-par("usr")[3L])/2,
+           labels=which[n], col=border[n], 
+           cex=clusterwidth/cexonewidth)
       
       retval[[n]] <- which(cluster==as.integer(names(clustab)[which[n]]))
     }

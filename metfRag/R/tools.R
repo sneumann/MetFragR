@@ -63,7 +63,7 @@ plotMol <- function(mol=NULL, smiles=NULL, width = 200, height = 200, watermark=
   if (!is.null(watermark)) {
     text(x=0.5, y=0.5, label=watermark, 
          cex=0.55/strwidth(watermark), 
-         col=rgb(0.75, 1,0.75))
+         col=rgb(0.5, 1,0.5))
   }
   rasterImage(alpha2image(img), 0,0, 1,1)
 }
