@@ -15,8 +15,8 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{pdfpages}
-\usepackage{xcolor}
 
+\usepackage{csquotes}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -304,7 +304,7 @@ The fragments can be visualised by calling \Rfunction{view.molecule.2d}.
 \subsection{Score distribution}
 First, we check the score distribution. Hence, we extract the numeric values of a list of molecules
 and save them in a list. These are displayed as a dot plot (Figure \ref{fig:plotScores}) whereby the axis of ordinates shows the score values and the axis of abscissas shows the position of the scored values.
-<<plotScores, fig=TRUE, eps=FALSE, fig.width=5, fig.height=5, fig.align='center', warning=FALSE, message=FALSE, fig.pos='h!', fig.cap='Illustration of the score distribution. Hence, the score and the respective position was plotted against each other.'>>=
+<<plotScores, fig=TRUE, eps=FALSE, fig.width=5, fig.height=5, fig.align='center', warning=FALSE, message=FALSE, fig.pos='h!', fig.cap='Illustration of the score distribution. The score and the respective position was plotted against each other.'>>=
 scores <- getScores(scoredMols, scoreprop="Score")
 scores <- getScores(scoredMols, scoreprop="newscore")
 
@@ -385,7 +385,7 @@ distance which formal formulated as \cite{Rogers1960}
 In our case, this describe the structural similarity of two different compounds to a third compound. 
 
 \newpage
-<<plotNumDendro, fig=TRUE, fig.width=5, fig.height=5, fig.align='center', eps=FALSE, warning=FALSE, message=FALSE, fig.cap='Example plot of clustered compounds. If the MCSS is most similar two of 50 molecules joined into a single cluster illustrate by a vertical line. In contrast to that, if a cluster split into new cluster the horizontal bar illustrate the dissimilarity. The cluster can numbered and marked with a coloured border.', fig.pos='h!'>>=
+<<plotNumDendro, fig=TRUE, fig.width=5, fig.height=5, fig.align='center', eps=FALSE, warning=FALSE, message=FALSE, fig.cap='Example plot of clustered compounds. If the MCSS is most similar two of 50 molecules joined into a single cluster illustrate by a vertical line. In contrast to that if a cluster split into new cluster the horizontal bar illustrate the dissimilarity. The cluster can numbered and marked with a coloured border.', fig.pos='h!'>>=
 plot(cluster, hang=-1)
 myimages.clustNumbers(cluster, k=7, which=1:7, border=2)
 @
